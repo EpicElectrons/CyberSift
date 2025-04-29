@@ -1,0 +1,53 @@
+flowchart TD
+    subgraph Frontend["Frontend Layer"]
+        UI[PyQt5/Gradio Interface]
+        DP[Dashboard Panel]
+        EP[Evidence Upload Panel]
+    end
+
+    subgraph Backend["Backend Layer"]
+        API[Flask/Spring Boot API]
+        AUTH[Authentication Service]
+        QUEUE[Task Queue]
+    end
+
+    subgraph AI["AI Processing Layer"]
+        CLASS[Attack Classifier]
+        XAI[XAI Engine]
+        TOOL[Tool Selector]
+        NET[Network Analyzer]
+    end
+
+    subgraph Storage["Storage Layer"]
+        SQL[(MySQL DB)]
+        GRAPH[(Graph-SQL)]
+        FILES[File Storage]
+    end
+
+    subgraph External["External Services"]
+        VT[VirusTotal API]
+        OTHER[Other APIs]
+    end
+
+    UI --> API
+    DP --> API
+    EP --> API
+    
+    API --> AUTH
+    API --> QUEUE
+    
+    QUEUE --> CLASS
+    QUEUE --> NET
+    
+    CLASS --> XAI
+    CLASS --> TOOL
+    
+    XAI --> SQL
+    TOOL --> SQL
+    NET --> GRAPH
+    
+    CLASS --> VT
+    NET --> OTHER
+    
+    SQL --> FILES
+    GRAPH --> FILES
